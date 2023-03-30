@@ -17,7 +17,7 @@
         <tr>
             <th>Fecha factura</th>
             <th>Tienda</th>
-            <th>Número de documento</th>
+            <th>Documento</th>
             <th>Nombre</th>
             <th>Teléfono</th>
             <th>Guía</th>
