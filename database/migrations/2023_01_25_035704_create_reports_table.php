@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->date('date_purchase');
-            $table->string('store');
+            $table->string('store')->nullable();
             $table->string('document_number')->nullable();
             $table->string('name');
             $table->string('phone');
-            $table->string('guide_number')->unique();
-            $table->string('conveyor');
-            $table->string('city')->nullable();
+            $table->string('guide_number')->nullable();
+            $table->string('conveyor')->nullable();
+            $table->string('city');
             $table->string('address')->nullable();
             $table->integer('debt_value');
             $table->string('product')->nullable();

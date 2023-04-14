@@ -15,7 +15,7 @@
 <table id="table_id" class="table table-bordered display" style="width:100%">
     <thead>
         <tr>
-            <th>Fecha factura</th>
+            <th>Fecha</th>
             <th>Tienda</th>
             <th>Documento</th>
             <th>Nombre</th>
@@ -28,7 +28,8 @@
             <th>Producto</th>
             <th>Valor compra</th>
             <th>Motivo</th>
-            <td>Acciones</td>
+            <th>¿Confiables?</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -47,6 +48,7 @@
                 <td>{{ $report->product }}</td>
                 <td>{{ $report->shipping_value }}</td>
                 <td>{{ $report->reason }}</td>
+                <td>{{ ($report->is_trustworthy == 1) ? "Confiable" : "No Confiable" }}</td>
                 <td class="text-center">
                     <div class="dropdown">
                         <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -72,9 +74,9 @@
     </tbody>
     <tfoot>
         <tr>
-            <th>Fecha factura</th>
+            <th>Fecha</th>
             <th>Tienda</th>
-            <th>Número de documento</th>
+            <th>Documento</th>
             <th>Nombre</th>
             <th>Teléfono</th>
             <th>Guía</th>
@@ -85,6 +87,7 @@
             <th>Producto</th>
             <th>Valor compra</th>
             <th>Motivo</th>
+            <th>¿Confiables?</th>
             <th>Acciones</th>
         </tr>
     </tfoot>
@@ -98,7 +101,20 @@
 @section('js')
     <script>
         $(document).ready( function () {
-            $('#table_id').DataTable();
+            $('#table_id').DataTable({
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros",
+                    "zeroRecords": "Ningún registro encontrado",
+                    "info": "Mostrando la página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hoy registros disponibles",
+                    "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "paginate": {
+                        "previous": "Anterior",
+                        "next": "Siguiente"
+                    }
+                }
+            });
         } );
     </script>
 @stop

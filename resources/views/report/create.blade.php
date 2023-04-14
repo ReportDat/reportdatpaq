@@ -27,19 +27,19 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="date_purchase">Fecha de factura</label>
-                            <input type="date" class="form-control" id="date_purchase" name="date_purchase" required>
+                            <input type="date" class="form-control" id="date_purchase" name="date_purchase" value="{{ date('Y-m-d') }}" required>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="store">Tienda</label>
-                            <input type="text" class="form-control" id="store" name="store" required>
+                            <input type="text" class="form-control" id="store" name="store">
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="document_number">Numero de documento</label>
-                            <input type="text" class="form-control" id="document_number" name="document_number" required>
+                            <input type="text" class="form-control" id="document_number" name="document_number">
                         </div>
                     </div>
                 </div>
@@ -54,13 +54,13 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="phone">Teléfono</label>
-                            <input type="text" class="form-control" id="phone" name="phone">
+                            <input type="number" class="form-control" id="phone" name="phone" required>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="guide_number">Número de guía</label>
-                            <input type="text" class="form-control" id="guide_number" name="guide_number" required>
+                            <input type="text" class="form-control" id="guide_number" name="guide_number">
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,14 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="conveyor">Transportadora</label>
-                            <input type="text" class="form-control" id="conveyor" name="conveyor" required>
+                            <select class="form-control"  name="conveyor" id="conveyor">
+                                <option value="">Seleccione</option>   
+                                <option value="Coordinadora">Coordinadora</option>   
+                                <option value="Envía">Envía</option>   
+                                <option value="Interrapidisimo">Interrapidisimo</option>   
+                                <option value="Saferbo">Saferbo</option>   
+                                <option value="Servientrega">Servientrega</option>   
+                            </select>
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -95,19 +102,19 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="shipping_value">Valor compra</label>
-                            <input type="number" class="form-control" id="shipping_value" name="shipping_value" required>
+                            <input type="number" class="form-control" id="shipping_value" name="shipping_value">
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="product">Producto</label>
-                            <input type="text" class="form-control" id="product" name="product" required>
+                            <input type="text" class="form-control" id="product" name="product">
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="reason">Motivo del reporte</label>
-                            <input type="text" class="form-control" id="reason" name="reason" required>
+                            <input type="text" class="form-control" id="reason" name="reason">
                         </div>
                     </div>
                 </div>
@@ -148,7 +155,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <a class="btn btn-info btn-sm float-sm-right" href="{{ url('file/documentoReportTdaTpaq.xlsx') }}" download>Descargar plantilla</a>
+                                <a class="btn btn-info btn-sm float-sm-right" href="{{ url('file/documentoReportTdaTpaq.csv') }}" download>Descargar plantilla</a>
                             </div>
                         </div>
                     </div>

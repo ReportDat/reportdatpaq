@@ -335,7 +335,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Listado',
-                    'url'  => 'report/index',
+                    'url'  => '',
                     'icon' => 'fas fa-list',
                 ],
                 // [
