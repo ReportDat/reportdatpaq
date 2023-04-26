@@ -151,11 +151,11 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="date_purchase">Archivo excel</label>
-                                    <input type="file" class="form-control" id="excel_file" name="excel_file" accept=".csv" required>
+                                    <input type="file" class="form-control" id="excel_file" name="excel_file" accept=".xlsx" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <a class="btn btn-info btn-sm float-sm-right" href="{{ url('file/documentoReportTdaTpaq.csv') }}" download>Descargar plantilla</a>
+                                <a class="btn btn-info btn-sm float-sm-right" href="{{ url('file/ReportDatPaq.xlsx') }}" download>Descargar plantilla</a>
                             </div>
                         </div>
                     </div>
