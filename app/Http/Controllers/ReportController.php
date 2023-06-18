@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateReportRequest;
 use Illuminate\Http\Request;
 use App\Imports\ReportsImport;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
@@ -109,8 +110,6 @@ class ReportController extends Controller
      */
     public function update(UpdateReportRequest $request, Report $report)
     {
-        $image = $request->file('image')->store('public/reports');
-
         $report->date_purchase = $request->date_purchase;
         $report->store = $request->store;
         $report->document_number = $request->document_number;
@@ -125,7 +124,16 @@ class ReportController extends Controller
         $report->shipping_value = $request->shipping_value;
         $report->reason = $request->reason;
         $report->is_trustworthy = $request->has('is_trustworthy');
-        $report->image = Storage::url($image);
+
+        if ($request->hasFile('image')) {
+            $pathPreviousImage = public_path($report->image);
+            if (File::exists($pathPreviousImage)) {
+                File::delete($pathPreviousImage);
+            }
+
+            $image = $request->file('image')->store('public/reports');
+            $report->image = Storage::url($image);
+        }
 
         $report->save();
 
