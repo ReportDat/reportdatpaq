@@ -23,6 +23,7 @@ class Report extends Model
         'product',
         'shipping_value',
         'reason',
-        'is_trustworthy'
+        'is_trustworthy',
+        'image'
     ];
 }

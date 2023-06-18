@@ -7,6 +7,7 @@ use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
 use Illuminate\Http\Request;
 use App\Imports\ReportsImport;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
@@ -52,6 +53,8 @@ class ReportController extends Controller
      */
     public function store(StoreReportRequest $request)
     {
+        $image = $request->file('image')->store('public/reports');
+
         $report = new Report();
 
         $report->date_purchase = $request->date_purchase;
@@ -67,7 +70,8 @@ class ReportController extends Controller
         $report->product = $request->product;
         $report->shipping_value = $request->shipping_value;
         $report->reason = $request->reason;
-        $report->is_trustworthy = true;
+        $report->is_trustworthy = $request->has('is_trustworthy');
+        $report->image = Storage::url($image);
 
         $report->save();
 
@@ -93,7 +97,7 @@ class ReportController extends Controller
      */
     public function edit(Report $report)
     {
-        //
+        return view('report/edit', ['report'=>$report]);
     }
 
     /**
@@ -105,9 +109,27 @@ class ReportController extends Controller
      */
     public function update(UpdateReportRequest $request, Report $report)
     {
-        $report->update($request->all());
+        $image = $request->file('image')->store('public/reports');
 
-        return redirect()->route("report.index");
+        $report->date_purchase = $request->date_purchase;
+        $report->store = $request->store;
+        $report->document_number = $request->document_number;
+        $report->name = $request->name;
+        $report->phone = $request->phone;
+        $report->guide_number = $request->guide_number;
+        $report->conveyor = $request->conveyor;
+        $report->city = $request->city;
+        $report->address = $request->address;
+        $report->debt_value = $request->debt_value;
+        $report->product = $request->product;
+        $report->shipping_value = $request->shipping_value;
+        $report->reason = $request->reason;
+        $report->is_trustworthy = $request->has('is_trustworthy');
+        $report->image = Storage::url($image);
+
+        $report->save();
+
+        return redirect()->route("report.index")->with('success', 'Actualización realizada correctamente!');
     }
 
     /**

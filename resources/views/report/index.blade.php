@@ -66,6 +66,8 @@
                                         <input type="hidden" name="is_trustworthy" value="1">
                                         <button type="submit" class="dropdown-item" href="#">Cambiar a confiable</button>
                                     @endif
+
+                                    <a class="dropdown-item" href="{{ route('report.edit', $report) }}">Editar</a>
                                 </form>  
                             </div>
                         </div>

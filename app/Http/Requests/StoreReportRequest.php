@@ -24,7 +24,10 @@ class StoreReportRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'date_purchase' => 'required',
+            'name' => 'required',
+            'phone' => 'required',
+            'debt_value' => 'required'
         ];
     }
 }

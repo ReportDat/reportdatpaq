@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReportController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +20,13 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', [App\Http\Controllers\ReportController::class, 'index'])->name('report.index');
-Route::get('report/create', [App\Http\Controllers\ReportController::class, 'create'])->name('report.create');
-Route::post('report/store', [App\Http\Controllers\ReportController::class, 'store'])->name('report.store');
-Route::put('report/{report}', [App\Http\Controllers\ReportController::class, 'update'])->name('report.update');
-Route::post('report/import', [App\Http\Controllers\ReportController::class, 'import'])->name('report.import');
+Route::get('home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [ReportController::class, 'index'])->name('report.index');
+
+Route::get('report/create', [ReportController::class, 'create'])->name('report.create');
+Route::post('report/store', [ReportController::class, 'store'])->name('report.store');
+
+Route::get('report/{report}/edit', [ReportController::class, 'edit'])->name('report.edit');
+Route::patch('report/{report}', [ReportController::class, 'update'])->name('report.update');
+
+Route::post('report/import', [ReportController::class, 'import'])->name('report.import');
