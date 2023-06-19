@@ -16,6 +16,7 @@
     <table id="table_id" class="table table-bordered display" style="width:100%; font-size:13px">
         <thead>
             <tr>
+                <th>Acciones</th>
                 <th>Fecha</th>
                 <th>Tienda</th>
                 <th>Documento</th>
@@ -30,12 +31,37 @@
                 <th>Valor compra</th>
                 <th>Motivo</th>
                 <th>¿Confiables?</th>
-                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($reports as $report)
                 <tr>
+                    <td class="text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                            Acción
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="{{ route('report.edit', $report) }}" title="Editar"><i class="far fa-edit fa-sm"></i> Editar</a>
+                                @if (!empty($report->image))
+                                    <a class="dropdown-item" href="{{ url($report->image) }}" download title="Descargar imagen"><i class="far fa-image fa- sm"></i> Descargar imagen</a>
+                                @endif
+                                {{-- <form action="{{ route("report.update", $report); }}" method="post">  
+                                    @csrf
+                                    @method('put')
+                                    @if ($report->is_trustworthy == true)
+                                        <input type="hidden" name="is_trustworthy" value="0">
+                                        <button class="dropdown-item" href="#">Cambiar a no confiable</button>
+                                    @else
+                                        <input type="hidden" name="is_trustworthy" value="1">
+                                        <button type="submit" class="dropdown-item" href="#">Cambiar a confiable</button>
+                                    @endif
+
+                                </form>
+                                <a class="dropdown-item" href="{{ route('report.edit', $report) }}">Editar</a> --}}
+                            </div>
+                        </div>
+                    </td>
                     <td>{{ $report->date_purchase }}</td>
                     <td>{{ $report->store }}</td>
                     <td>{{ $report->document_number }}</td>
@@ -50,28 +76,7 @@
                     <td>{{ $report->shipping_value }}</td>
                     <td>{{ $report->reason }}</td>
                     <td>{{ ($report->is_trustworthy == 1) ? "Confiable" : "No Confiable" }}</td>
-                    <td class="text-center">
-                        <div class="dropdown">
-                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                            Acción
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <form action="{{ route("report.update", $report); }}" method="post">  
-                                    @csrf
-                                    @method('put')
-                                    @if ($report->is_trustworthy == true)
-                                        <input type="hidden" name="is_trustworthy" value="0">
-                                        <button class="dropdown-item" href="#">Cambiar a no confiable</button>
-                                    @else
-                                        <input type="hidden" name="is_trustworthy" value="1">
-                                        <button type="submit" class="dropdown-item" href="#">Cambiar a confiable</button>
-                                    @endif
-
-                                    <a class="dropdown-item" href="{{ route('report.edit', $report) }}">Editar</a>
-                                </form>  
-                            </div>
-                        </div>
-                    </td>
+                    
                 </tr>    
             @endforeach
         </tbody>

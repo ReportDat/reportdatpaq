@@ -14,11 +14,10 @@ class ReportsImport implements ToModel, WithHeadingRow
 {
     public function model(array $reports)
     {
-        $formattedDate = date('Y-m-d', strtotime($reports['date_purchase']));
-        
-        if (!empty($reports["name"])) {       
+        if (!empty($reports["name"]) || $reports["name"] != null) {       
+            $formattedDate = Carbon::createFromFormat('Y-m-d', $reports['date_purchase']);
             return new Report([
-                "date_purchase" => Carbon::createFromFormat('Y-m-d', $formattedDate),
+                "date_purchase" => $formattedDate,
                 "store" => $reports["store"],
                 "document_number" => $reports["document_number"],
                 "name" => $reports["name"],
