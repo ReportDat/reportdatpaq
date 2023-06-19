@@ -17,6 +17,7 @@
         <thead>
             <tr>
                 <th>Acciones</th>
+                <th>¿Confiables?</th>
                 <th>Fecha</th>
                 <th>Tienda</th>
                 <th>Documento</th>
@@ -30,7 +31,6 @@
                 <th>Producto</th>
                 <th>Valor compra</th>
                 <th>Motivo</th>
-                <th>¿Confiables?</th>
             </tr>
         </thead>
         <tbody>
@@ -62,6 +62,7 @@
                             </div>
                         </div>
                     </td>
+                    <td>{{ ($report->is_trustworthy == 1) ? "Confiable" : "No Confiable" }}</td>
                     <td>{{ $report->date_purchase }}</td>
                     <td>{{ $report->store }}</td>
                     <td>{{ $report->document_number }}</td>
@@ -75,7 +76,6 @@
                     <td>{{ $report->product }}</td>
                     <td>{{ $report->shipping_value }}</td>
                     <td>{{ $report->reason }}</td>
-                    <td>{{ ($report->is_trustworthy == 1) ? "Confiable" : "No Confiable" }}</td>
                     
                 </tr>    
             @endforeach
