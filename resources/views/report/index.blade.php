@@ -17,7 +17,7 @@
         <thead>
             <tr>
                 <th>Acciones</th>
-                <th>¿Confiables?</th>
+                <th>Estado</th>
                 <th>Fecha</th>
                 <th>Tienda</th>
                 <th>Documento</th>
@@ -82,6 +82,8 @@
         </tbody>
         <tfoot>
             <tr>
+                <th>Acciones</th>
+                <th>Estado</th>
                 <th>Fecha</th>
                 <th>Tienda</th>
                 <th>Documento</th>
@@ -95,8 +97,6 @@
                 <th>Producto</th>
                 <th>Valor compra</th>
                 <th>Motivo</th>
-                <th>¿Confiables?</th>
-                <th>Acciones</th>
             </tr>
         </tfoot>
     </table>

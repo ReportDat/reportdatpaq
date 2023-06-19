@@ -135,7 +135,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="image">Cargar imágen</label>
-                            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                            <input type="file" class="form-control" id="image" name="image" accept=".png, .jpg, .jpeg">
                             @error('date_purchase')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
