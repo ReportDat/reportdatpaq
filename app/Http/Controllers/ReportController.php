@@ -7,7 +7,6 @@ use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
 use Illuminate\Http\Request;
 use App\Imports\ReportsImport;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
@@ -55,7 +54,9 @@ class ReportController extends Controller
      */
     public function store(StoreReportRequest $request)
     {
-        $image = $request->file('image')->store('public/reports');
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->store('public/reports');
+        }
 
         $report = new Report();
 
