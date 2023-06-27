@@ -10,6 +10,7 @@ use App\Imports\ReportsImport;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class ReportController extends Controller
 {
@@ -55,7 +56,10 @@ class ReportController extends Controller
     public function store(StoreReportRequest $request)
     {
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('public/reports');
+            $file = $request->file('image');
+            $filename = Str::random(40) . '.' . $file->getClientOriginalExtension();
+            // $image = $request->file('image')->store('public/reports');
+            Storage::putFile('public/reports', $file);
         }
 
         $report = new Report();
@@ -74,11 +78,12 @@ class ReportController extends Controller
         $report->shipping_value = $request->shipping_value;
         $report->reason = $request->reason;
         $report->is_trustworthy = $request->has('is_trustworthy');
-        $report->image = Storage::url($image);
+        // $report->image = Storage::url($image);
+        $report->image = $filename;
 
         $report->save();
 
-        return redirect()->route("report.index");
+        return redirect()->route("report.index")->with('success', 'Image uploaded successfully.');
     }
 
     /**
@@ -133,8 +138,13 @@ class ReportController extends Controller
                 File::delete($pathPreviousImage);
             }
 
-            $image = $request->file('image')->store('public/reports');
-            $report->image = Storage::url($image);
+            // $image = $request->file('image')->store('public/reports');
+
+            $file = $request->file('image');
+            $filename = Str::random(40) . '.' . $file->getClientOriginalExtension();
+            Storage::putFile('public/reports', $file);
+            
+            $report->image = $filename;
         }
 
         $report->save();
@@ -167,5 +177,17 @@ class ReportController extends Controller
         $reports = Report::all();
 
         return view('report/index', compact("reports"));
+    }
+
+    public function downloadImage(Report $report)
+    {
+        $path = public_path('storage/reports/' . $report->image);
+
+        $headers = [
+            'Content-Type' => 'image/jpeg',
+            'Content-Disposition' => 'attachment; filename="' . $report->image . '"',
+        ];
+        
+        return response()->download($path, $report->image, $headers);
     }
 }

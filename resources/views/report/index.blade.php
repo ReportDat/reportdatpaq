@@ -44,7 +44,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="{{ route('report.edit', $report) }}" title="Editar"><i class="far fa-edit fa-sm"></i> Editar</a>
                                 @if (!empty($report->image))
-                                    <a class="dropdown-item" href="{{ asset($report->image) }}" download title="Descargar imagen"><i class="far fa-image fa- sm"></i> Descargar imagen</a>
+                                    <a class="dropdown-item" href="{{ route('report.downloadImage', $report->id) }}" title="Descargar imagen"><i class="far fa-image fa- sm"></i> Descargar imagen</a>
                                 @endif
                                 {{-- <form action="{{ route("report.update", $report); }}" method="post">  
                                     @csrf
@@ -111,6 +111,7 @@
     <script>
         $(document).ready( function () {
             $('#table_id').DataTable({
+                "order": [[ 5, "asc" ]],
                 "language": {
                     "lengthMenu": "Mostrar _MENU_ registros",
                     "zeroRecords": "Ningún registro encontrado",

@@ -30,3 +30,4 @@ Route::get('report/{report}/edit', [ReportController::class, 'edit'])->name('rep
 Route::patch('report/{report}', [ReportController::class, 'update'])->name('report.update');
 
 Route::post('report/import', [ReportController::class, 'import'])->name('report.import');
+Route::get('report/{report}/downloadImage', [ReportController::class, 'downloadImage'])->name('report.downloadImage');
