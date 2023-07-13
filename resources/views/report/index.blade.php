@@ -12,6 +12,16 @@
 @stop
 
 @section('content')
+
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <strong>¡Correcto!</strong> {{ session('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+@endif
+
 <div class="table-responsive">
     <table id="table_id" class="table table-bordered display" style="width:100%; font-size:13px">
         <thead>
@@ -46,19 +56,7 @@
                                 @if (!empty($report->image))
                                     <a class="dropdown-item" href="{{ route('report.downloadImage', $report->id) }}" title="Descargar imagen"><i class="far fa-image fa- sm"></i> Descargar imagen</a>
                                 @endif
-                                {{-- <form action="{{ route("report.update", $report); }}" method="post">  
-                                    @csrf
-                                    @method('put')
-                                    @if ($report->is_trustworthy == true)
-                                        <input type="hidden" name="is_trustworthy" value="0">
-                                        <button class="dropdown-item" href="#">Cambiar a no confiable</button>
-                                    @else
-                                        <input type="hidden" name="is_trustworthy" value="1">
-                                        <button type="submit" class="dropdown-item" href="#">Cambiar a confiable</button>
-                                    @endif
-
-                                </form>
-                                <a class="dropdown-item" href="{{ route('report.edit', $report) }}">Editar</a> --}}
+                                <a class="dropdown-item" href="https://api.whatsapp.com/send?phone={{ $report->phone }}" target="_blank" title="Whatsapp"><i class="fab fa-whatsapp"></i> Whatsapp</a>
                             </div>
                         </div>
                     </td>

@@ -55,13 +55,6 @@ class ReportController extends Controller
      */
     public function store(StoreReportRequest $request)
     {
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = Str::random(40) . '.' . $file->getClientOriginalExtension();
-            // $image = $request->file('image')->store('public/reports');
-            Storage::putFile('public/reports', $file);
-        }
-
         $report = new Report();
 
         $report->date_purchase = $request->date_purchase;
@@ -78,12 +71,20 @@ class ReportController extends Controller
         $report->shipping_value = $request->shipping_value;
         $report->reason = $request->reason;
         $report->is_trustworthy = $request->has('is_trustworthy');
-        // $report->image = Storage::url($image);
-        $report->image = $filename;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            $pathImage = $image->store('public/reports');
+            $extension = $image->getClientOriginalExtension();
+
+            $fileName = pathinfo($pathImage, PATHINFO_FILENAME);
+            $report->image = $fileName.'.'.$extension;
+        }
 
         $report->save();
 
-        return redirect()->route("report.index")->with('success', 'Image uploaded successfully.');
+        return redirect()->route("report.index")->with('success', 'Creación realizada');
     }
 
     /**
@@ -133,23 +134,24 @@ class ReportController extends Controller
         $report->is_trustworthy = $request->has('is_trustworthy');
 
         if ($request->hasFile('image')) {
-            $pathPreviousImage = public_path($report->image);
-            if (File::exists($pathPreviousImage)) {
-                File::delete($pathPreviousImage);
+            $filePath = 'public/reports/' . $report->image; 
+
+            if (Storage::exists($filePath)) {
+                Storage::delete($filePath);
             }
 
-            // $image = $request->file('image')->store('public/reports');
+            $image = $request->file('image');
 
-            $file = $request->file('image');
-            $filename = Str::random(40) . '.' . $file->getClientOriginalExtension();
-            Storage::putFile('public/reports', $file);
-            
-            $report->image = $filename;
+            $pathImage = $image->store('public/reports');
+            $extension = $image->getClientOriginalExtension();
+
+            $fileName = pathinfo($pathImage, PATHINFO_FILENAME);
+            $report->image = $fileName.'.'.$extension;
         }
 
         $report->save();
 
-        return redirect()->route("report.index")->with('success', 'Actualización realizada correctamente!');
+        return redirect()->route("report.index")->with('success', 'Actualización realizada');
     }
 
     /**
@@ -169,7 +171,7 @@ class ReportController extends Controller
             Excel::import(new ReportsImport, $request->file('excel_file'));
         }
 
-        return redirect()->route("report.index")->with('success', '¡Importación realizada correctamente!');
+        return redirect()->route("report.index")->with('success', 'Importación realizada');
     }
 
     public function homeIndex()

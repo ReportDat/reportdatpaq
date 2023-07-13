@@ -15,7 +15,8 @@ class ReportsImport implements ToModel, WithHeadingRow
     public function model(array $reports)
     {
         if (!empty($reports["name"]) || $reports["name"] != null) {       
-            $formattedDate = Carbon::createFromFormat('Y-m-d', $reports['date_purchase']);
+            $formattedDate = Carbon::createFromFormat('d/m/Y', $reports['date_purchase']);
+            
             return new Report([
                 "date_purchase" => $formattedDate,
                 "store" => $reports["store"],
