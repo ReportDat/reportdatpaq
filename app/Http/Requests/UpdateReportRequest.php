@@ -24,6 +24,7 @@ class UpdateReportRequest extends FormRequest
     public function rules()
     {
         return [
+            'guide_number' => 'unique:report,guide_number',
             'date_purchase' => 'required',
             'name' => 'required',
             'phone' => 'required',

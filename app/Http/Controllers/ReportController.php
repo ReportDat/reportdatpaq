@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 
 class ReportController extends Controller
 {
-    
+
     /**
      * Create a new controller instance.
      *
@@ -24,7 +24,7 @@ class ReportController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -33,7 +33,6 @@ class ReportController extends Controller
     public function index()
     {
         $reports = Report::all();
-
         return view('report/index', compact("reports"));
     }
 
@@ -79,12 +78,12 @@ class ReportController extends Controller
             $extension = $image->getClientOriginalExtension();
 
             $fileName = pathinfo($pathImage, PATHINFO_FILENAME);
-            $report->image = $fileName.'.'.$extension;
+            $report->image = $fileName . '.' . $extension;
         }
 
         $report->save();
 
-        return redirect()->route("report.index")->with('success', 'Creación realizada');
+        return redirect()->route("report.index")->with(['success' => 'Creación realizada' , 'reportId' => $report->id]);
     }
 
     /**
@@ -106,7 +105,7 @@ class ReportController extends Controller
      */
     public function edit(Report $report)
     {
-        return view('report/edit', ['report'=>$report]);
+        return view('report/edit', ['report' => $report]);
     }
 
     /**
@@ -118,13 +117,6 @@ class ReportController extends Controller
      */
     public function update(UpdateReportRequest $request, Report $report)
     {
-        $report->date_purchase = $request->date_purchase;
-        $report->store = $request->store;
-        $report->document_number = $request->document_number;
-        $report->name = $request->name;
-        $report->phone = $request->phone;
-        $report->guide_number = $request->guide_number;
-        $report->conveyor = $request->conveyor;
         $report->city = $request->city;
         $report->address = $request->address;
         $report->debt_value = $request->debt_value;
@@ -134,7 +126,7 @@ class ReportController extends Controller
         $report->is_trustworthy = $request->has('is_trustworthy');
 
         if ($request->hasFile('image')) {
-            $filePath = 'public/reports/' . $report->image; 
+            $filePath = 'public/reports/' . $report->image;
 
             if (Storage::exists($filePath)) {
                 Storage::delete($filePath);
@@ -146,7 +138,7 @@ class ReportController extends Controller
             $extension = $image->getClientOriginalExtension();
 
             $fileName = pathinfo($pathImage, PATHINFO_FILENAME);
-            $report->image = $fileName.'.'.$extension;
+            $report->image = $fileName . '.' . $extension;
         }
 
         $report->save();
@@ -189,7 +181,7 @@ class ReportController extends Controller
             'Content-Type' => 'image/jpeg',
             'Content-Disposition' => 'attachment; filename="' . $report->image . '"',
         ];
-        
+
         return response()->download($path, $report->image, $headers);
     }
 }
